@@ -1,0 +1,514 @@
+<!doctype html>
+<!--
+  Material Design Lite
+  Copyright 2015 Google Inc. All rights reserved.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      https://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License
+-->
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="A front-end template that helps you build fast, modern mobile web apps.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <title>Centros de salud en Euskadi</title>
+
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="icon" sizes="192x192" href="images/android-desktop.png">
+
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Material Design Lite">
+    <link rel="apple-touch-icon-precomposed" href="./images/ios-desktop.png">
+
+    <!-- Tile icon for Win8 (144x144 + tile color) -->
+    <meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png">
+    <meta name="msapplication-TileColor" content="#3372DF">
+
+    <link rel="shortcut icon" href="./images/favicon.png">
+
+    <!-- SEO: If your mobile URL is different from the desktop URL, add a canonical link to the desktop page https://developers.google.com/webmasters/smartphone-sites/feature-phones -->
+    <!--
+    <link rel="canonical" href="http://www.example.com/">
+    -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.deep_purple-pink.min.css">
+    <link rel="stylesheet" href="./css/styles.css">
+    <style>
+    #view-source {
+      position: fixed;
+      display: block;
+      right: 0;
+      bottom: 0;
+      margin-right: 40px;
+      margin-bottom: 40px;
+      z-index: 900;
+    }
+    </style>
+  </head>
+  <body class="mdl-demo mdl-color--grey-100 mdl-color-text--grey-700 mdl-base">
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+      <header class="mdl-layout__header mdl-layout__header--scroll mdl-color--primary">
+        <div class="mdl-layout--large-screen-only mdl-layout__header-row">
+        </div>
+        <div class="mdl-layout--large-screen-only mdl-layout__header-row">
+          <h1>Centros de salud de Euskadi</h1>
+        </div>
+        <div class="mdl-layout--large-screen-only mdl-layout__header-row">
+        </div>
+        <div class="mdl-layout__tab-bar mdl-js-ripple-effect mdl-color--primary-dark">
+          <a href="#nombre" class="mdl-layout__tab is-active">Busqueda por nombre del centro</a>
+          <a href="#poblacion" id="apoblacion" class="mdl-layout__tab">Listado por población</a>
+          <a href="#posicion"  id="aposicion" class="mdl-layout__tab">Listado por mapa</a>
+          <a href="#informacion"  id="ainformacion" class="mdl-layout__tab">Información</a>
+         
+          
+        </div>
+      </header>
+      <main class="mdl-layout__content">
+        
+        <div class="mdl-layout__tab-panel is-active" id="nombre">
+          <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
+            <h2>Selecciona la letra inicial del centro</h2>
+            <ul id="alfabeto"></ul>
+            <p class="contadorResultados"></p> 
+          </section>
+          <div class="cartas"></div>
+        </div>
+        
+        <div class="mdl-layout__tab-panel" id="poblacion">
+          <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
+            <div class="mdl-cell mdl-cell--12-col">
+            <h2>Listado de poblaciones y centros</h2>
+
+              <ul class="resultadosPoblacion"></ul>
+            </div>
+          </section>
+        </div>
+
+       
+
+
+        <div class="mdl-layout__tab-panel" id="informacion">
+          <section class="section--center mdl-grid mdl-grid--no-spacing">
+            <div class="mdl-cell mdl-cell--12-col">
+              <h4>Informacion</h4>
+              <p>Esta aplicación es un servicio libre y desarrollado por aburrimiento una tarde y las lentas cargas de esta información en el front original.</p>
+              <p>Además me apetecía jugar con los jsonp que se ofertan libres desde http://opendata.euskadi.eus/ y aplicar varias técnicas de desarrollo. ;) </p>
+                <h4>¿Qué ofrece?</h4>
+                <ul>
+                  <li>Busquedas por <strong>Nombre del centro</strong></li>
+                  <li>Listado de centros agrupados por <strong>Localidad</strong></li>
+                  <li>Mostrar centros de salud en base a tu <strong>Situación geográfica</strong></li>
+
+                </ul>
+              </ul>
+
+              <h5 id="lorem1">Mejora continua</h5>
+              <p>En breve refactorizaré el código ya que lo he escrito de forma alocada (no me tiren piedras), además pondré una busqueda reactiva en base a algún patrón principal y pasaré este concepto a Angular para compilarlo en Nativescript  y Electron. Ya veremos qué es lo que sale de ahí.
+              </p>
+              <p>Jorge Vega</p>
+              <ul>
+                <li><a href="https://www.linkedin.com/in/jorge-vega-11344947/">LinkedIn</a></li>
+                <li><a href="https://github.com/jvega300">GitHub</a></li>
+                <li><a href="https://twitter.com/bycodin">@bycodin</a></li>
+              </ul>
+              <p>Los datos son obtenidos de http://opendata.euskadi.eus/contenidos/ds_localizaciones/centros_salud_en_euskadi/opendata/centros-salud.json así que si observas algún "undefined" (que los hay) es porque los datos están mal generados de origen :( </p>
+
+            </div>
+          </section>
+        </div>
+
+        <div class="mdl-layout__tab-panel" id="posicion">
+          <section class="section--center mdl-grid mdl-grid--no-spacing">
+            <div class="mdl-cell mdl-cell--12-col">
+          
+              <h4>Localizar centros en mi localidad actual</h4>
+              <p class="mdl-color-text--red-200">*(Si hay menos marcas que fichas en el listado, es porque un centro contiene varios servicios)</p>
+              <p class="posicion"></p>
+              <div id="map"></div>
+              <h3>Centros en tu localidad</h3>
+              <div class="cartasPosicionamiento"></div>
+            </div>
+          </section>
+        </div>
+
+
+
+        <footer class="mdl-mega-footer">
+          <div class="mdl-mega-footer--middle-section">
+            <div class="mdl-mega-footer--drop-down-section">
+              <input class="mdl-mega-footer--heading-checkbox" type="checkbox" checked>
+              <h2 class="mdl-mega-footer--heading">Jorge Vega</h2>
+              <ul class="mdl-mega-footer--link-list">
+                <li><a href="https://www.linkedin.com/in/jorge-vega-11344947/">LinkedIn</a></li>
+                <li><a href="https://github.com/jvega300">GitHub</a></li>
+                <li><a href="https://twitter.com/bycodin">@bycodin</a></li>
+              </ul>
+            </div>
+            
+          </div>
+          <div class="mdl-mega-footer--bottom-section">
+            <div class="mdl-logo">
+                Basado en los datos de opendata.euskadi.eus, platilla de matrial design base y Google Maps
+            </div>
+          </div>
+        </footer>
+      </main>
+    </div>
+
+    <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+  </body>
+</html>
+<script>
+
+  //contruir el array
+  var arr = []
+  var obj = "";
+  var loc = []
+
+
+    
+
+
+  //Petición del jsonp
+  $(document).ready(function () {
+
+    
+
+    $.ajax({
+        url: "http://opendata.euskadi.eus/contenidos/ds_localizaciones/centros_salud_en_euskadi/opendata/centros-salud.json",
+        dataType: "jsonp",
+        success: function() {
+          //console.log("Al cargar con exito");
+        },
+        error: function() {
+          //error en la carga
+        },
+        complete: function() {
+          //Llamar a generar el listado
+        }
+    }); 
+
+    //Alfabeto
+    var alfabeto, letras = new Array 
+    alfabeto = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
+
+    $.each(alfabeto, function( i, letra ) {
+        letras[i] = `<li><a class="${letra}_clase" href="#${letra}">${letra}</a></li> `
+        //console.log(letra)
+    })
+    
+    
+   
+    //Render del alfabeto
+    $("#alfabeto").html(letras);
+
+
+    
+
+  });
+  
+  function jsonCallback(json){
+
+    //console.log(json)
+
+    //parsear el jsonp en forma de string dentro de un objeto
+    obj = JSON.parse(JSON.stringify(json))
+    let contador = 0;
+    //Establever valores del objeto dentro de un array organizado
+    $.each(obj, function( i, item ) {
+        
+      if(item.documentName.charAt(0)=='A'){
+        contador ++;
+        //render de la plantilla de cards de Material D.
+        //console.log(item)
+        arr[i] = `
+        <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
+            <header class="section__play-btn mdl-cell mdl-cell--3-col-desktop mdl-cell--2-col-tablet mdl-cell--4-col-phone mdl-color--teal-100 mdl-color-text--white">
+            </header>
+            <div class="mdl-card mdl-cell mdl-cell--9-col-desktop mdl-cell--6-col-tablet mdl-cell--4-col-phone">
+              <div class="mdl-card__supporting-text">
+                <h4>${item.documentName}</h4>
+                Municipio: ${item.municipality}<br/>
+                Tipo de Centro: ${item.sanidadCenterType}<br/>
+                Dirección: ${item.address}<br/>
+                Email: ${item.email}<br/>
+                Teléfono: ${item.phone}<br/>
+                Fax: ${item.sanidadFax}<br/><br/>
+                Horario: ${item.sanidadTimeTable}<br/>
+                
+              </div>
+       
+            </div>
+       
+          </section>`;
+        }
+    }) 
+    
+    //Ordenar el array alfabéticamente
+    arr.sort();
+    
+    //Render del array
+    $(".cartas").html(arr);
+    $(".contadorResultados").html(contador+" Resultados");
+    
+    arr = []
+
+  }
+
+
+
+
+function generarListados(){
+  
+  let municipio = "";
+  let nombre = "";
+  let glo = "";
+  let lis = [];
+  let x = 0;
+
+  $.each(obj, function( i, item ) {
+    municipio = String(item.municipality);
+    nombre = String(item.documentName);
+    lis[i] = [municipio, nombre];
+
+  })
+  lis.sort();
+  let contador = 0;
+  for (let li of lis) {
+    //console.log(li[0]);
+    if(municipio.toLowerCase() == li[0].toLowerCase()){
+      glo +=`<li class="ppoblado"><i class="material-icons">local_hospital</i><span>${li[1]}</span></li>`
+    }else{
+      glo += `<li class="titulo"><i class="material-icons 2x_web">location_city</i>${li[0]} </li><li class="ppoblado"><i class="material-icons">local_hospital</i><span>${li[1]}</span></li>`
+    }
+    municipio = li[0];
+  }
+  
+  $(".resultadosPoblacion").html(glo);
+
+
+}
+
+function generarCartas(poblacionActual){
+  //console.log(obj)
+  let con = 0;
+  $.each(obj, function( i, item ) {
+
+    let nombre = String(item.municipality);
+    nombre = nombre.toLowerCase()
+    poblacionActual = poblacionActual.toLowerCase()
+      
+    //console.log(`${nombre} == ${poblacionActual}`)
+    if(nombre==poblacionActual){
+      
+      //guardo los nombre y localizaciones en el objeto loc
+      loc[con]=[item.documentName, item.latwgs84, item.lonwgs84];
+      con++;
+
+      //render de la plantilla de cards de Material D.
+      arr[i] = `
+      <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
+          <header class="section__play-btn mdl-cell mdl-cell--3-col-desktop mdl-cell--2-col-tablet mdl-cell--4-col-phone mdl-color--teal-100 mdl-color-text--white">
+          </header>
+          <div class="mdl-card mdl-cell mdl-cell--9-col-desktop mdl-cell--6-col-tablet mdl-cell--4-col-phone">
+            <div class="mdl-card__supporting-text">
+              <h4>${item.documentName}</h4>
+                Municipio: ${item.municipality}<br/>
+                Tipo de Centro: ${item.sanidadCenterType}<br/>
+                Dirección: ${item.address}<br/>
+                Email: ${item.email}<br/>
+                Teléfono: ${item.phone}<br/>
+                Fax: ${item.sanidadFax}<br/><br/>
+                Horario: ${item.sanidadTimeTable}<br/>
+            </div>
+            <div class="mdl-card__actions">
+              <a href="#" class="mdl-button">${item.address}</a>
+            </div>
+          </div>
+          <ul class="mdl-menu mdl-js-menu mdl-menu--bottom-right" for="btn1">
+            <li class="mdl-menu__item">Lorem</li>
+            <li class="mdl-menu__item" disabled>Ipsum</li>
+            <li class="mdl-menu__item">Dolor</li>
+          </ul>
+        </section>`;
+      }
+    }) 
+    //console.log(loc)
+  $(".cartasPosicionamiento").html(arr);
+  return loc;
+  arr = []
+}
+
+
+$(document).on('click', "#apoblacion", function(e) {
+  //console.log(e)
+  generarListados();
+
+});
+
+$(document).on('click', "p.ppoblado", function(e) {
+  //console.log(e)
+
+  //console.log(e.currentTarget.outerText)
+
+  var dialog = document.querySelector('dialog');
+  var showDialogButton = document.querySelector('#show-dialog');
+  if (! dialog.showModal) {
+    dialogPolyfill.registerDialog(dialog);
+  }
+  
+  dialog.showModal( );
+  
+  dialog.querySelector('.close').addEventListener('click', function() {
+    dialog.close();
+  });
+
+});
+
+//Click en alfabeto
+  document.getElementById("alfabeto").addEventListener('click', function(e) {
+
+    let contador = 0;
+    
+    $(".cartas").empty();
+    
+    $.each(obj, function( i, item ) {
+
+      //console.log(item.documentName.charCodeAt(0).toLowerCase()+"..."+e.toElement.className.charCodeAt(0));
+      
+      let nombre = item.documentName.toLowerCase()
+      if(nombre.charAt(0)==e.toElement.className.charAt(0)){
+
+        contador ++;
+
+        //render de la plantilla de cards de Material D.
+        arr[i] = `
+        <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
+            <header class="section__play-btn mdl-cell mdl-cell--3-col-desktop mdl-cell--2-col-tablet mdl-cell--4-col-phone mdl-color--teal-100 mdl-color-text--white">
+            </header>
+            <div class="mdl-card mdl-cell mdl-cell--9-col-desktop mdl-cell--6-col-tablet mdl-cell--4-col-phone">
+              <div class="mdl-card__supporting-text">
+                <h4>${item.documentName}</h4>
+                Municipio: ${item.municipality}<br/>
+                Tipo de Centro: ${item.sanidadCenterType}<br/>
+                Dirección: ${item.address}<br/>
+                Email: ${item.email}<br/>
+                Teléfono: ${item.phone}<br/>
+                Fax: ${item.sanidadFax}<br/><br/>
+                Horario: ${item.sanidadTimeTable}<br/>
+              </div>
+            </div>
+            
+          </section>`;
+        }
+      }) 
+      //alert(arr)
+      $(".cartas").html(arr);
+      $(".contadorResultados").html(contador+" Resultados");
+      arr = []
+
+    }, false 
+  );
+
+//Inicializar el mapa
+  function initMap() {
+    var map = new google.maps.Map(document.getElementById('map'), {
+      center: {lat: -34.397, lng: 150.644},
+      zoom: 14
+    });
+    var infoWindow = new google.maps.InfoWindow({map: map});
+
+    // Try HTML5 geolocation.
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function(position) {
+        var pos = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        };
+        
+        geocodeLatLng(pos.lat, pos.lng, map, infoWindow);
+        
+      }, function() {
+        handleLocationError(true, infoWindow, map.getCenter());
+      });
+    } else {
+      // Browser doesn't support Geolocation
+      handleLocationError(false, infoWindow, map.getCenter());
+    }
+  }
+
+// Geolocalización inversa
+  function geocodeLatLng(lat, lng, map, infowindow) {
+    var geocoder = new google.maps.Geocoder;
+
+    //console.log(lat, lng)
+    var latlng = {lat, lng};
+
+    geocoder.geocode({'location': latlng}, function(results, status) {
+      if (status === 'OK') {
+        if (results[1]) {
+          map.setZoom(14);
+          map.setCenter(new google.maps.LatLng(latlng));
+
+          $(".posicion").html(`Te encuentras en: ${results[1].formatted_address}`);
+
+          let coordenadasCerca =  generarCartas(results[1].address_components[0].long_name);
+          //console.log(coordenadasCerca)
+          
+          let marker, i;
+          for (i = 0; i < coordenadasCerca.length; i++) {  
+            marker = new google.maps.Marker({
+              position: new google.maps.LatLng(coordenadasCerca[i][1], coordenadasCerca[i][2]),
+              map: map
+            });
+            
+            infowindow.setContent(coordenadasCerca[i][0]);
+            infowindow.open(map, marker);
+            
+            //console.log(coordenadasCerca[i][1], coordenadasCerca[i][2])
+            //console.log(coordenadasCerca[i][0]);
+
+
+            google.maps.event.addListener(marker, 'click', (function(marker, i) {
+              return function() {
+                infowindow.setContent(coordenadasCerca[i][0]);
+                infowindow.open(map, marker);
+              }
+            })(marker, i));
+          }
+        } else {
+          window.alert('No hay resultados');
+        }
+      } 
+    });
+  }
+
+// Geolocalización Errores
+  function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+    infoWindow.setPosition(pos);
+    infoWindow.setContent(browserHasGeolocation ?
+                          'Error: Falló el servicio de Geolocalización' :
+                          'Error: Tu navegador no soporta la Geolocalización.');
+  }
+    
+  </script>
+  <script async defer
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB-HnrH-cUSpEf-yrpPsqa-nOyzZ5zxUF4&callback=initMap">
+  </script>

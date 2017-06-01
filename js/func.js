@@ -227,7 +227,7 @@ function geocodeLatLng(lat, lng, map, infowindow) {
 
         $(".posicion").html(`Te encuentras en: ${results[1].formatted_address}`);
 
-        let coordenadasCerca =  generarCartas(results[1].address_components[0].long_name);
+        let coordenadasCerca =  generarCartas(results[1].address_components[1].long_name);
         
         let marker, i;
         for (i = 0; i < coordenadasCerca.length; i++) {  
